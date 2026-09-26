@@ -247,6 +247,7 @@ function Slide({ item, width, isActive, draggedRef }) {
         src={imageUrl}
         alt={item.title}
         loading="eager"
+        fetchPriority="high"
         loadingText="Loading Hero"
         showLoadingText={true}
         style={{

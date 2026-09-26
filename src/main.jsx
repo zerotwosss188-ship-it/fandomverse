@@ -1,5 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '@fontsource/orbitron/400.css';
+import '@fontsource/orbitron/500.css';
+import '@fontsource/orbitron/600.css';
+import '@fontsource/orbitron/700.css';
+import '@fontsource/orbitron/800.css';
+import '@fontsource/orbitron/900.css';
+import '@fontsource/space-grotesk/300.css';
+import '@fontsource/space-grotesk/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+
 import App from './App.jsx';
 import './index.css';
 
@@ -76,6 +88,10 @@ Promise.all(
     </React.StrictMode>
   );
 
-  // Start preload AFTER render so UI is interactive immediately
-  setTimeout(preloadImages, 500);
+  // ⭐ Performance: start preload only when browser is idle
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(preloadImages, { timeout: 5000 });
+  } else {
+    setTimeout(preloadImages, 3000);
+  }
 });

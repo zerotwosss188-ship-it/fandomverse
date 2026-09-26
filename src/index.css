@@ -768,3 +768,14 @@ textarea:focus-visible {
 @media (hover: none) {
   .fv-card:hover { transform: none !important; }
 }
+/* ⭐ Performance — defer off-screen rendering */
+.fv-cat-row-scroll,
+section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+/* Images — prevent layout shift */
+img {
+  content-visibility: auto;
+}

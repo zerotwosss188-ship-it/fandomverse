@@ -18,6 +18,16 @@
   const FIXED_HEIGHT = 340;
   const SLIDE_MS = 8000;
 
+// ⭐ Preload first featured image
+function preloadFirstImage(url) {
+  if (!url) return;
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'image';
+  link.href = url;
+  document.head.appendChild(link);
+}
+
   export default function FeaturedCarousel({ items }) {
     const [index, setIndex] = useState(0);
 
@@ -36,12 +46,17 @@
     const prev = () => setIndex((i) => (i - 1 + items.length) % items.length);
     const next = () => setIndex((i) => (i + 1) % items.length);
 
-  const { url: legalImage } = useLegalImage(
-    item.category,
-    item.title,
-    item.series,
-    item.banner || item.image
-  );
+    const { url: legalImage } = useLegalImage(
+      item.category,
+      item.title,
+      item.series,
+      item.banner || item.image
+    );
+
+    // ⭐ Preload first slide
+    React.useEffect(() => {
+      if (index === 0 && legalImage) preloadFirstImage(legalImage);
+    }, [legalImage, index]);
 
   const imageUrl = legalImage || item.banner || item.image;
 

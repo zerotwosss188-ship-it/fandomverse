@@ -11,6 +11,7 @@ export default function SmartImage({
   objectPosition = 'center',
   loadingText = 'Loading',
   showLoadingText = true,
+  fetchPriority = 'auto',
 }) {
   const [loaded, setLoaded] = useState(false);
   const [errored, setErrored] = useState(false);
@@ -86,6 +87,7 @@ export default function SmartImage({
           alt={alt}
           loading={loading}
           decoding="async"
+          fetchPriority={loading === 'eager' ? 'high' : 'low'}
           className={className}
           onLoad={() => setLoaded(true)}
           onError={handleError}

@@ -20,14 +20,25 @@ export default function IntroVideoBackground() {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all(
-      SLIDES.map((s) =>
-        getLegalImage(s.category, s.query, s.series).catch(() => null)
-      )
-    ).then((results) => {
-      if (cancelled) return;
-      setUrls(results.filter(Boolean));
-    });
+    
+    const loadImages = () => {
+      Promise.all(
+        SLIDES.map((s) =>
+          getLegalImage(s.category, s.query, s.series).catch(() => null)
+        )
+      ).then((results) => {
+        if (cancelled) return;
+        setUrls(results.filter(Boolean));
+      });
+    };
+
+    // ⭐ Defer API calls until browser is idle
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadImages, { timeout: 4000 });
+    } else {
+      setTimeout(loadImages, 2000);
+    }
+
     return () => { cancelled = true; };
   }, []);
 
