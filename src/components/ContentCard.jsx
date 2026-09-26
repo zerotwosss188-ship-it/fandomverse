@@ -147,7 +147,7 @@ export default function ContentCard({ item, index = 0 }) {
         <div style={{ padding: 18, display: 'flex', flexDirection: 'column', flex: 1 }}>
           <h3
             style={{
-              fontSize: 'clamp(15px, 0.95rem + 0.35vw, 20px)',
+              fontSize: 'clamp(14px, 0.85rem + 0.15vw, 15.5px)',
               fontFamily: 'Orbitron, sans-serif',
               fontWeight: 600,
               letterSpacing: '0.02em',
@@ -160,7 +160,7 @@ export default function ContentCard({ item, index = 0 }) {
           </h3>
           <p
             style={{
-              fontSize: 'clamp(12.5px, 0.8rem + 0.25vw, 15px)',
+              fontSize: 'clamp(12px, 0.75rem + 0.1vw, 13px)',
               color: '#8a94ad',
               lineHeight: 1.6,
               marginBottom: 14,

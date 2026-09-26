@@ -68,6 +68,7 @@ export default function IntroVideoBackground() {
             {/* Inner div remounts on state toggle — see key below */}
             <div
               key={`${i}-${isActive ? 'on' : 'off'}`}
+              className={isActive ? 'fv-kenburns-bg' : ''}
               style={{
                 position: 'absolute',
                 inset: 0,
@@ -75,18 +76,6 @@ export default function IntroVideoBackground() {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 filter: 'saturate(1.1) brightness(0.78)',
-                // Inactive slides stay frozen at final zoomed state during fade-out
-                transform: isActive
-                  ? 'scale(1)'
-                  : 'scale(1.18) translate(-1.5%, -1%)',
-                // Active slides run the smooth zoom; inactive slides don't
-                animation: isActive
-                  ? `fvKenBurns ${ROTATE_MS + FADE_MS}ms ease-out forwards`
-                  : 'none',
-                willChange: 'transform',
-                transition: isActive
-                  ? 'none'
-                  : `transform ${FADE_MS}ms ease-in-out`,
               }}
             />
           </div>
@@ -158,17 +147,7 @@ export default function IntroVideoBackground() {
         </div>
       )}
 
-      <style>{`
-        @keyframes fvKenBurns {
-          0%   { transform: scale(1) translate(0, 0); }
-          100% { transform: scale(1.18) translate(-1.5%, -1%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          @keyframes fvKenBurns {
-            0%, 100% { transform: scale(1); }
-          }
-        }
-      `}</style>
+
     </div>
   );
 }

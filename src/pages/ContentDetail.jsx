@@ -628,7 +628,7 @@ window.dispatchEvent(
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
                 gap: 16,
               }}
             >

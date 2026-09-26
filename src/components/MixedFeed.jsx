@@ -105,7 +105,7 @@ const finalImage = legalImage || image;
 
         <h3
           style={{
-            fontSize: 'clamp(15px, 0.95rem + 0.35vw, 20px)',
+            fontSize: 'clamp(13px, 0.8rem + 0.15vw, 15px)',
             fontFamily: 'Orbitron, sans-serif',
             fontWeight: 700,
             color: '#f5f5f5',
@@ -122,7 +122,7 @@ const finalImage = legalImage || image;
         </h3>
         <div
           style={{
-            fontSize: 'clamp(11px, 0.7rem + 0.2vw, 14px)',
+            fontSize: 'clamp(10.5px, 0.65rem + 0.1vw, 11.5px)',
             color: '#a8a8a8',
             fontFamily: 'Space Grotesk, sans-serif',
             display: 'flex',
