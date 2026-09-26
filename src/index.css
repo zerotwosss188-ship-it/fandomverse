@@ -768,30 +768,3 @@ textarea:focus-visible {
 @media (hover: none) {
   .fv-card:hover { transform: none !important; }
 }
-
-/* ============================================================
-   REDUCED MOTION — respect, but keep ticker + ken burns
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  /* Force override — these are essential visual features */
-  .fv-ticker-track {
-    animation-name: fv-ticker !important;
-    animation-duration: 25s !important;
-    animation-iteration-count: infinite !important;
-  }
-  .fv-kenburns-bg {
-    animation-name: fvKenBurns !important;
-    animation-duration: 14s !important;
-    animation-iteration-count: infinite !important;
-    animation-direction: alternate !important;
-  }
-}

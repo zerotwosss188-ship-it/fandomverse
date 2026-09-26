@@ -82,13 +82,10 @@ function Panel({
 
   const handleClick = () => {
     if (isMobile) {
-      // On mobile, always navigate since all panels are active
       if (item.path) navigate(item.path);
     } else if (isActive) {
-      // On desktop, only the active (expanded) panel navigates
       if (item.path) navigate(item.path);
     } else {
-      // Inactive panel — first click just expands it
       setActive(idx);
     }
   };
@@ -183,7 +180,7 @@ function Panel({
         }}
       />
 
-      {/* Inactive vertical title (desktop only) */}
+      {/* Inactive vertical title */}
       {!isActive && isHorizontal && !isMobile && (
         <div
           style={{

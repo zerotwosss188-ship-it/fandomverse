@@ -27,11 +27,7 @@ const catNames = {
   manga: 'Manga',
 };
 
-// ============================================================
-// Series → banner image map
-// ============================================================
 export const SERIES_IMAGES = {
-  // Gaming
   'GTA VI': '/images/banners/gta-vi.jpg',
   'GTA V': '/images/banners/gta-v.jpg',
   'Hades II': '/images/banners/hades.jpg',
@@ -50,8 +46,6 @@ export const SERIES_IMAGES = {
   'Resident Evil': '/images/banners/resident-evil.jpg',
   "Assassin's Creed": '/images/banners/assassin-s-creed.jpg',
   'The Last of Us': '/images/banners/the-last-of-us.jpg',
-
-  // Anime
   'Demon Slayer': '/images/banners/demon-slayer.jpg',
   'Demon Slayer S4': '/images/banners/demon-slayer.jpg',
   'Jujutsu Kaisen': '/images/banners/jujutsu-kaisen.jpg',
@@ -66,8 +60,6 @@ export const SERIES_IMAGES = {
   'Fullmetal Alchemist': '/images/banners/fullmetal-alchemist.jpg',
   Frieren: '/images/banners/frieren.jpg',
   'Death Note': '/images/banners/death-note.jpg',
-
-  // Movies
   'Dune Part Three': '/images/banners/dune.jpg',
   Dune: '/images/banners/dune.jpg',
   'Marvel Phase 7 Kickoff': '/images/banners/avengers.jpg',
@@ -78,12 +70,9 @@ export const SERIES_IMAGES = {
   Interstellar: '/images/banners/interstellar.jpg',
   Avatar: '/images/banners/avatar.jpg',
   'Star Wars': '/images/banners/star-wars.jpg',
-
-  // TV Shows
   'Stranger Things S5 Vol 2': '/images/banners/stranger-things.jpg',
   'Stranger Things': '/images/banners/stranger-things.jpg',
   'The Last of Us S3': '/images/banners/the-last-of-us.jpg',
-  'The Last of Us': '/images/banners/the-last-of-us.jpg',
   'Breaking Bad': '/images/banners/breaking-bad.jpg',
   'Game of Thrones': '/images/banners/game-of-thrones.jpg',
   Wednesday: '/images/banners/wednesday.jpg',
@@ -91,8 +80,6 @@ export const SERIES_IMAGES = {
   'House of the Dragon': '/images/banners/house-of-the-dragon.jpg',
   'Squid Game': '/images/banners/squid-game.jpg',
   'Peaky Blinders': '/images/banners/peaky-blinders.jpg',
-
-  // K-Pop
   'BTS Reunion Tour Seoul': '/images/banners/bts.jpg',
   BTS: '/images/banners/bts.jpg',
   'BLACKPINK Comeback': '/images/banners/blackpink.jpg',
@@ -103,8 +90,6 @@ export const SERIES_IMAGES = {
   NewJeans: '/images/banners/newjeans.jpg',
   IVE: '/images/banners/ive.jpg',
   aespa: '/images/banners/aespa.jpg',
-
-  // Comics
   "X-Men '97 S2": '/images/banners/x-men.jpg',
   'X-Men': '/images/banners/x-men.jpg',
   Batman: '/images/banners/batman.jpg',
@@ -112,8 +97,6 @@ export const SERIES_IMAGES = {
   Watchmen: '/images/banners/watchmen.jpg',
   Avengers: '/images/banners/avengers.jpg',
   'Captain America': '/images/banners/captain-america.jpg',
-
-  // Manga
   'One Piece Live Action S2': '/images/banners/one-piece.jpg',
   Berserk: '/images/banners/berserk.jpg',
   'Vinland Saga': '/images/banners/vinland-saga.jpg',
@@ -158,6 +141,7 @@ function getTypeIcon(type) {
 
 export default function ReleaseRow({ release: r }) {
   const [hovered, setHovered] = useState(false);
+
   const date = new Date(r.date);
   const now = new Date();
   const daysLeft = Math.ceil((date - now) / (1000 * 60 * 60 * 24));
@@ -420,7 +404,9 @@ export default function ReleaseRow({ release: r }) {
                 gap: 6,
                 padding: '7px 12px',
                 borderRadius: 8,
-                background: showBanner ? `${color}33` : 'rgba(255,255,255,0.04)',
+                background: showBanner
+                  ? `${color}33`
+                  : 'rgba(255,255,255,0.04)',
                 border: `1px solid ${
                   showBanner ? `${color}77` : 'rgba(255,255,255,0.08)'
                 }`,
@@ -447,7 +433,9 @@ export default function ReleaseRow({ release: r }) {
               gap: 6,
               padding: '7px 12px',
               borderRadius: 8,
-              background: showBanner ? `${color}55` : 'rgba(255,255,255,0.06)',
+              background: showBanner
+                ? `${color}55`
+                : 'rgba(255,255,255,0.06)',
               border: `1px solid ${
                 showBanner ? color : 'rgba(255,255,255,0.1)'
               }`,

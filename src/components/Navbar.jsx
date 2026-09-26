@@ -17,6 +17,8 @@ import {
   FaClock,
   FaEye,
   FaSearch,
+  FaSun,
+  FaMoon,
   FaVideo,
 } from 'react-icons/fa';
 import LoginModal from './LoginModal';
@@ -216,7 +218,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ⭐ Live clock (updates every second)
+    // ⭐ Live clock (updates every second)
   useEffect(() => {
     const t = setInterval(() => setClock(new Date()), 1000);
     return () => clearInterval(t);
