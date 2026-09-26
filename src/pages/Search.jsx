@@ -29,10 +29,11 @@ const types = [
 
 export default function Search() {
   const [params, setParams] = useSearchParams();
-  const initial = params.get('q') || '';
-  const [query, setQuery] = useState(initial);
-  const [debouncedQuery, setDebouncedQuery] = useState(initial);
-  const [category, setCategory] = useState('all');
+const initial = params.get('q') || '';
+const initialCategory = params.get('category') || 'all';
+const [query, setQuery] = useState(initial);
+const [debouncedQuery, setDebouncedQuery] = useState(initial);
+const [category, setCategory] = useState(initialCategory);
   const [type, setType] = useState('all');
   const [sortBy, setSortBy] = useState('relevance');
   const [visibleCount, setVisibleCount] = useState(60);

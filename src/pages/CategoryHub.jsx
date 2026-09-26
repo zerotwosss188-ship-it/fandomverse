@@ -451,14 +451,11 @@ const filteredReleases = useMemo(() => {
               alignItems: 'center',
             }}
           >
-                        <button
-              type="button"
-              onClick={() => {
-                const q = searchQuery.trim();
-                window.location.href = q
-                  ? `/search?q=${encodeURIComponent(q)}`
-                  : '/search';
-              }}
+              <button
+  type="button"
+  onClick={() => {
+    window.location.href = `/search?category=${slug}`;
+  }}
               style={{
                 position: 'relative',
                 flex: '1 1 280px',
