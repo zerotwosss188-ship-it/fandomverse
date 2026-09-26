@@ -1,0 +1,16 @@
+{
+  "releases": [
+    { "id": "r1", "title": "Demon Slayer S4", "date": "2026-11-15", "category": "anime", "type": "Season Premiere" },
+    { "id": "r2", "title": "Jujutsu Kaisen Movie", "date": "2026-12-20", "category": "anime", "type": "Movie" },
+    { "id": "r3", "title": "GTA VI", "date": "2026-11-01", "category": "gaming", "type": "Game Release" },
+    { "id": "r4", "title": "Hades II Console", "date": "2026-10-15", "category": "gaming", "type": "Game Release" },
+    { "id": "r5", "title": "Dune Part Three", "date": "2027-03-15", "category": "movies", "type": "Movie" },
+    { "id": "r6", "title": "Marvel Phase 7 Kickoff", "date": "2027-05-01", "category": "movies", "type": "Movie" },
+    { "id": "r7", "title": "Stranger Things S5 Vol 2", "date": "2027-01-10", "category": "tv-shows", "type": "Season Premiere" },
+    { "id": "r8", "title": "The Last of Us S3", "date": "2027-04-01", "category": "tv-shows", "type": "Season Premiere" },
+    { "id": "r9", "title": "BTS Reunion Tour Seoul", "date": "2027-03-01", "category": "kpop", "type": "Concert" },
+    { "id": "r10", "title": "BLACKPINK Comeback", "date": "2026-11-20", "category": "kpop", "type": "Album" },
+    { "id": "r11", "title": "X-Men '97 S2", "date": "2026-12-05", "category": "comics", "type": "Series Premiere" },
+    { "id": "r12", "title": "One Piece Live Action S2", "date": "2027-02-15", "category": "manga", "type": "Series Premiere" }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "responses": [
+    {
+      "keywords": ["anime", "demon slayer", "jjk", "naruto", "one piece"],
+      "reply": "Anime is Japanese animation. Popular series include Demon Slayer, Jujutsu Kaisen, Naruto, and One Piece. Check out the Anime hub!",
+      "link": { "label": "Explore Anime", "to": "/category/anime" }
+    },
+    {
+      "keywords": ["gaming", "games", "gta", "video game", "console"],
+      "reply": "Gaming covers PC, console, and mobile. GTA VI, God of War, Zelda, and Halo are fan favorites. Visit the Gaming hub!",
+      "link": { "label": "Explore Gaming", "to": "/category/gaming" }
+    },
+    {
+      "keywords": ["movie", "movies", "cinema", "film", "dune"],
+      "reply": "Movies include blockbusters like Dune, Marvel, and indie gems. Check out the Movies hub for trailers and reviews!",
+      "link": { "label": "Explore Movies", "to": "/category/movies" }
+    },
+    {
+      "keywords": ["tv", "show", "series", "stranger things", "netflix"],
+      "reply": "TV Shows include Stranger Things, Breaking Bad, and Game of Thrones. Binge-worthy content awaits in the TV Shows hub!",
+      "link": { "label": "Explore TV Shows", "to": "/category/tv-shows" }
+    },
+    {
+      "keywords": ["kpop", "k-pop", "bts", "blackpink", "idol"],
+      "reply": "K-Pop features BTS, BLACKPINK, Stray Kids, and more. Comebacks and tours are tracked in the K-Pop hub!",
+      "link": { "label": "Explore K-Pop", "to": "/category/kpop" }
+    },
+    {
+      "keywords": ["comic", "comics", "marvel", "dc", "batman", "spider-man"],
+      "reply": "Comics cover Marvel, DC, and indie publishers. Batman, Spider-Man, and Wolverine are iconic. Explore the Comics hub!",
+      "link": { "label": "Explore Comics", "to": "/category/comics" }
+    },
+    {
+      "keywords": ["manga", "one piece manga", "naruto manga", "death note"],
+      "reply": "Manga includes One Piece, Naruto, Death Note, and Fullmetal Alchemist. Visit the Manga hub for chapters and arcs!",
+      "link": { "label": "Explore Manga", "to": "/category/manga" }
+    },
+    {
+      "keywords": ["bookmark", "save", "favorite"],
+      "reply": "You can bookmark articles, characters, and events by clicking the ★ icon. Find them all in your Bookmarks page!",
+      "link": { "label": "View Bookmarks", "to": "/bookmarks" }
+    },
+    {
+      "keywords": ["search", "find", "look up"],
+      "reply": "Use the search bar in the navbar to find content across all categories. You can filter by type and category!",
+      "link": { "label": "Go to Search", "to": "/search" }
+    },
+    {
+      "keywords": ["cart", "buy", "purchase", "merch"],
+      "reply": "Browse merchandise in each category hub. Add items to your temporary cart to see the total. No real checkout — it's a demo!",
+      "link": { "label": "View Cart", "to": "/cart" }
+    },
+    {
+      "keywords": ["releases", "upcoming", "release date", "calendar"],
+      "reply": "Track upcoming premieres, game drops, albums, and movies across all fandoms on the Releases page!",
+      "link": { "label": "View Releases", "to": "/releases" }
+    },
+    {
+      "keywords": ["contact", "help", "support"],
+      "reply": "You can reach us through the Contact page. We'd love to hear your feedback!",
+      "link": { "label": "Contact Us", "to": "/contact" }
+    },
+    {
+      "keywords": ["about", "who", "what is fandomverse"],
+      "reply": "FandomVerse is your unified hub for Anime, Gaming, Movies, TV Shows, K-Pop, Comics, and Manga. Built with love for fans!",
+      "link": { "label": "About Us", "to": "/about" }
+    }
+  ],
+  "fallback": "Hmm, I'm not sure about that. Try asking about Anime, Gaming, Movies, K-Pop, Comics, Manga, or use the search bar to explore!",
+  "fallbackLink": { "label": "Search Everything", "to": "/search" }
+}

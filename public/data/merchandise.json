@@ -1,0 +1,196 @@
+{
+  "merchandise": [
+    { "id": "am1", "category": "anime", "series": "Demon Slayer", "name": "Tanjiro Figure", "price": 49.99, "description": "Collector's edition 1/7 scale figure of Tanjiro Kamado.", "type": "Figure", "image": "/images/merchandise/anime/tanjiro.png" },
+
+    { "id": "am4", "category": "anime", "series": "Jujutsu Kaisen", "name": "Gojo Figure", "price": 59.99, "description": "Gojo Satoru in his blindfold pose, premium finish.", "type": "Figure", "image": "/images/merchandise/anime/gojo.png" },
+
+    { "id": "am7", "category": "anime", "series": "Naruto", "name": "Naruto Figure", "price": 44.99, "description": "Hokage Naruto in Sage Mode, dynamic base.", "type": "Figure", "image": "/images/merchandise/anime/naruto.png" },
+
+    { "id": "am10", "category": "anime", "series": "Attack on Titan", "name": "Levi Figure", "price": 54.99, "description": "Captain Levi mid-swing with dual blades.", "type": "Figure", "image": "/images/merchandise/anime/levi.png" },
+
+    { "id": "am13", "category": "anime", "series": "One Piece", "name": "Luffy Gear 5 Figure", "price": 69.99, "description": "Luffy in Gear 5 Sun God form, LED base.", "type": "Figure", "image": "/images/merchandise/anime/luffy.png" },
+
+    { "id": "am16", "category": "anime", "series": "Bleach", "name": "Ichigo Figure", "price": 49.99, "description": "Ichigo Kurosaki in Bankai, Tensa Zangetsu ready.", "type": "Figure", "image": "/images/merchandise/anime/ichigo.png" },
+
+    { "id": "am19", "category": "anime", "series": "Solo Leveling", "name": "Jinwoo Figure", "price": 59.99, "description": "Sung Jinwoo with Shadow Army at his command.", "type": "Figure", "image": "/images/merchandise/anime/jinwoo.png" },
+
+   { "id": "am21", "category": "anime", "series": "Dragon Ball", "name": "Goku Ultra Instinct Figure", "price": 64.99, "description": "Goku in Mastered Ultra Instinct, silver hair finish.", "type": "Figure", "image": "/images/merchandise/anime/goku.png" },
+
+   { "id": "gm1", "category": "gaming", "series": "God of War", "name": "Kratos Statue", "price": 149.99, "description": "God of War limited edition statue with base.", "type": "Figure", "image": "/images/merchandise/gaming/kratos.png" },
+   { "id": "gm2", "category": "gaming", "series": "God of War", "name": "Leviathan Axe Replica", "price": 199.99, "description": "Full-size Leviathan Axe, foam & metal finish.", "type": "Replica", "image": "/images/merchandise/gaming/leviathan-axe.png" },
+   { "id": "gm3", "category": "gaming", "series": "The Legend of Zelda", "name": "Link Amiibo", "price": 24.99, "description": "Official Link amiibo for Tears of the Kingdom.", "type": "Accessory", "image": "/images/merchandise/gaming/link.png" },
+   { "id": "gm4", "category": "gaming", "series": "The Legend of Zelda", "name": "Master Sword Replica", "price": 129.99, "description": "Detailed Master Sword with display stand.", "type": "Replica", "image": "/images/merchandise/gaming/master-sword.png" },
+   { "id": "gm5", "category": "gaming", "series": "The Witcher", "name": "Geralt Figure", "price": 79.99, "description": "Geralt with silver sword drawn, wolf medallion.", "type": "Figure", "image": "/images/merchandise/gaming/geralt.png" },
+   { "id": "gm6", "category": "gaming", "series": "The Witcher", "name": "Wolf Medallion", "price": 49.99, "description": "Silver-plated Witcher wolf medallion.", "type": "Accessory", "image": "/images/merchandise/gaming/wolf-medallion.png" },
+   { "id": "gm7", "category": "gaming", "series": "Halo", "name": "Master Chief Helmet", "price": 199.99, "description": "Full-size wearable Master Chief helmet replica.", "type": "Replica", "image": "/images/merchandise/gaming/master-chief.png" },
+   { "id": "gm8", "category": "gaming", "series": "Red Dead Redemption", "name": "Arthur Morgan Figure", "price": 79.99, "description": "Arthur with revolver and cowboy hat.", "type": "Figure", "image": "/images/merchandise/gaming/arthur-morgan.png" },
+
+   { "id": "mm1", "category": "movies", "series": "Dune", "name": "Dune Artbook", "price": 59.99, "description": "Behind-the-scenes of Dune films with art.", "type": "Book", "image": "/images/merchandise/movie/dune-artbook.png" },
+   { "id": "mm2", "category": "movies", "series": "Dune", "name": "Crysknife Replica", "price": 89.99, "description": "Fremen crysknife with sandworm tooth detail.", "type": "Replica", "image": "/images/merchandise/movie/crysknife.png" },
+   { "id": "mm3", "category": "movies", "series": "The Matrix", "name": "Matrix Poster", "price": 19.99, "description": "Framed Matrix movie poster, original art.", "type": "Poster", "image": "/images/merchandise/movie/matrix-poster.png" },
+   { "id": "mm4", "category": "movies", "series": "The Matrix", "name": "Red Pill / Blue Pill Set", "price": 14.99, "description": "Iconic red and blue pill replicas in case.", "type": "Collectible", "image": "/images/merchandise/movie/red-blue-pill.png" },
+   { "id": "mm5", "category": "movies", "series": "Iron Man", "name": "Arc Reactor Replica", "price": 79.99, "description": "Glowing arc reactor with chest mount.", "type": "Replica", "image": "/images/merchandise/movie/arc-reactor.png" },
+   { "id": "mm6", "category": "movies", "series": "Alien", "name": "Xenomorph Figure", "price": 89.99, "description": "Detailed Xenomorph figure with base.", "type": "Figure", "image": "/images/merchandise/movie/xenomorph.png" },
+   { "id": "mm7", "category": "movies", "series": "Pirates of the Caribbean", "name": "Jack Sparrow Compass", "price": 44.99, "description": "Working replica of Jack's compass.", "type": "Replica", "image": "/images/merchandise/movie/jack-compass.png" },
+    {
+      "id": "tm1",
+      "category": "tv-shows",
+      "series": "Stranger Things",
+      "name": "Hellfire Club Tee",
+      "price": 29.99,
+      "description": "Stranger Things fan t-shirt with Hellfire logo.",
+      "type": "Apparel"
+    },
+    {
+      "id": "tm2",
+      "category": "tv-shows",
+      "series": "Stranger Things",
+      "name": "Demogorgon Figure",
+      "price": 49.99,
+      "description": "Demogorgon with articulated limbs.",
+      "type": "Figure"
+    },
+    {
+      "id": "tm3",
+      "category": "tv-shows",
+      "series": "Breaking Bad",
+      "name": "Los Pollos Hermanos Tee",
+      "price": 24.99,
+      "description": "Breaking Bad inspired fast food chain tee.",
+      "type": "Apparel"
+    },
+    {
+      "id": "tm4",
+      "category": "tv-shows",
+      "series": "Game of Thrones",
+      "name": "GoT Map Print",
+      "price": 34.99,
+      "description": "Westeros map poster print, aged style.",
+      "type": "Poster"
+    },
+    {
+      "id": "tm5",
+      "category": "tv-shows",
+      "series": "Game of Thrones",
+      "name": "Iron Throne Miniature",
+      "price": 89.99,
+      "description": "Detailed Iron Throne miniature with base.",
+      "type": "Figure"
+    },
+    {
+      "id": "tm6",
+      "category": "tv-shows",
+      "series": "Sherlock",
+      "name": "221B Door Sign",
+      "price": 19.99,
+      "description": "Metal 221B Baker Street door plaque.",
+      "type": "Accessory"
+    },
+    {
+      "id": "tm7",
+      "category": "tv-shows",
+      "series": "The Office",
+      "name": "Dunder Mifflin Mug",
+      "price": 16.99,
+      "description": "Ceramic Dunder Mifflin paper company mug.",
+      "type": "Accessory"
+    },
+    {
+      "id": "tm8",
+      "category": "tv-shows",
+      "series": "The Office",
+      "name": "Schrute Farms Beet Tee",
+      "price": 22.99,
+      "description": "Dwight's Schrute Farms t-shirt.",
+      "type": "Apparel"
+    },
+    { "id": "km1", "category": "kpop", "series": "BTS", "name": "BTS Lightstick", "price": 64.99, "description": "Official ARMY bomb lightstick with Bluetooth.", "type": "Accessory", "image": "/images/merchandise/kpop/bts-lightstick.png" },
+{ "id": "km4", "category": "kpop", "series": "BLACKPINK", "name": "BLACKPINK Album", "price": 44.99, "description": "Born Pink collector's edition album.", "type": "Music", "image": "/images/merchandise/kpop/blackpink-album.png" },
+{ "id": "km6", "category": "kpop", "series": "Stray Kids", "name": "Stray Kids Album", "price": 39.99, "description": "Latest Stray Kids album with photobook.", "type": "Music", "image": "/images/merchandise/kpop/stray-kids-album.png" },
+{ "id": "km10", "category": "kpop", "series": "TWICE", "name": "TWICE Candybong", "price": 54.99, "description": "Official TWICE Candybong ver 3 lightstick.", "type": "Accessory", "image": "/images/merchandise/kpop/twice-candybong.png" },
+{ "id": "km13", "category": "kpop", "series": "SEVENTEEN", "name": "SEVENTEEN Caratbong", "price": 59.99, "description": "Official SEVENTEEN Caratbong ver 3 lightstick.", "type": "Accessory", "image": "/images/merchandise/kpop/seventeen-caratbong.png" },
+{ "id": "km14", "category": "kpop", "series": "NewJeans", "name": "NewJeans Album Set", "price": 89.99, "description": "NewJeans' complete discography box set.", "type": "Music", "image": "/images/merchandise/kpop/newjeans-album.png" },
+{ "id": "km15", "category": "kpop", "series": "IVE", "name": "IVE Poster Set", "price": 24.99, "description": "Set of 6 official IVE posters.", "type": "Poster", "image": "/images/merchandise/kpop/ive-poster.png" },
+{ "id": "km16", "category": "kpop", "series": "aespa", "name": "aespa æ-aespa Figure", "price": 79.99, "description": "aespa virtual avatar collectible figure.", "type": "Figure", "image": "/images/merchandise/kpop/aespa-figure.png" },
+    {
+      "id": "cm1",
+      "category": "comics",
+      "series": "Marvel",
+      "name": "Spider-Man Comic",
+      "price": 89.99,
+      "description": "Amazing Fantasy #15 reprint, graded case.",
+      "type": "Comic"
+    },
+    {
+      "id": "cm4",
+      "category": "comics",
+      "series": "DC",
+      "name": "Batman Statue",
+      "price": 149.99,
+      "description": "Dark Knight collectible statue on gargoyle.",
+      "type": "Figure"
+    },
+    {
+      "id": "cm7",
+      "category": "comics",
+      "series": "X-Men",
+      "name": "Wolverine Claws Replica",
+      "price": 99.99,
+      "description": "Wearable Wolverine adamantium claws, metal finish.",
+      "type": "Replica"
+    },
+    {
+      "id": "cm9",
+      "category": "comics",
+      "series": "Avengers",
+      "name": "Avengers Logo Poster",
+      "price": 24.99,
+      "description": "Framed Avengers 'A' logo poster with glow effect.",
+      "type": "Poster"
+    },
+    {
+      "id": "cm11",
+      "category": "comics",
+      "series": "Spider-Man",
+      "name": "Spider-Man Web Shooters",
+      "price": 44.99,
+      "description": "Wearable web shooter toy with refill cartridges.",
+      "type": "Accessory"
+    },
+    {
+      "id": "cm12",
+      "category": "comics",
+      "series": "Iron Man",
+      "name": "Iron Man Helmet Replica",
+      "price": 199.99,
+      "description": "Full-size wearable Iron Man helmet with LED eyes.",
+      "type": "Replica"
+    },
+    {
+      "id": "cm13",
+      "category": "comics",
+      "series": "Captain America",
+      "name": "Captain America Shield",
+      "price": 129.99,
+      "description": "Metal replica Captain America shield with straps.",
+      "type": "Replica"
+    },
+    {
+      "id": "cm14",
+      "category": "comics",
+      "series": "Thor",
+      "name": "Mjolnir Hammer Replica",
+      "price": 119.99,
+      "description": "Detailed Mjolnir hammer replica with display stand.",
+      "type": "Replica"
+    },
+    { "id": "mg1", "category": "manga", "series": "One Piece", "name": "One Piece Vol 1", "price": 14.99, "description": "First volume of One Piece, English edition.", "type": "Manga", "image": "/images/merchandise/manga/one-piece.png" },
+{ "id": "mg3", "category": "manga", "series": "Berserk", "name": "Berserk Deluxe Vol 1", "price": 49.99, "description": "Berserk deluxe hardcover edition, oversized.", "type": "Manga", "image": "/images/merchandise/manga/berserk.png" },
+{ "id": "mg7", "category": "manga", "series": "Naruto", "name": "Naruto Manga Box Set", "price": 179.99, "description": "Complete Naruto manga box set, volumes 1-72.", "type": "Manga", "image": "/images/merchandise/manga/naruto.png" },
+{ "id": "mg11", "category": "manga", "series": "Jujutsu Kaisen", "name": "JJK Manga Box Set", "price": 149.99, "description": "JJK manga volumes 0-20 collector's box set.", "type": "Manga", "image": "/images/merchandise/manga/jjk.png" },
+{ "id": "mg12", "category": "manga", "series": "Demon Slayer", "name": "Demon Slayer Manga Box Set", "price": 159.99, "description": "Complete Demon Slayer manga box set with bonus art.", "type": "Manga", "image": "/images/merchandise/manga/demon-slayer.png" },
+{ "id": "mg13", "category": "manga", "series": "Death Note", "name": "Death Note Complete Box Set", "price": 99.99, "description": "Complete Death Note manga box set with How to Read.", "type": "Manga", "image": "/images/merchandise/manga/death-note.png" },
+{ "id": "mg14", "category": "manga", "series": "Chainsaw Man", "name": "Chainsaw Man Vol 1-11 Bundle", "price": 89.99, "description": "Complete Part 1 of Chainsaw Man manga.", "type": "Manga", "image": "/images/merchandise/manga/chainsaw-man.png" },
+{ "id": "mg15", "category": "manga", "series": "Attack on Titan", "name": "AoT Manga Complete Box Set", "price": 249.99, "description": "Complete Attack on Titan manga, volumes 1-34.", "type": "Manga", "image": "/images/merchandise/manga/aot.png" }  
+  ]
+}
