@@ -371,7 +371,7 @@ export default function Home() {
                 gap: 0,
               }}
             >
-              {/* Small label — looping word-by-word reveal */}
+              {/* Small label — color-cycling word reveal */}
               <div
                 style={{
                   fontSize: 11,
@@ -379,7 +379,6 @@ export default function Home() {
                   textTransform: 'uppercase',
                   fontFamily: 'Orbitron, sans-serif',
                   fontWeight: 700,
-                  color: '#a855f7',
                   marginBottom: 14,
                   alignSelf: 'flex-start',
                   display: 'flex',
@@ -394,13 +393,20 @@ export default function Home() {
                       opacity: [0, 1, 1, 0],
                       y: [6, 0, 0, -4],
                       filter: ['blur(6px)', 'blur(0px)', 'blur(0px)', 'blur(4px)'],
+                      color: ['#a855f7', '#a855f7', '#e11d48', '#e11d48'],
+                      textShadow: [
+                        '0 0 12px rgba(168, 85, 247, 0.6)',
+                        '0 0 16px rgba(168, 85, 247, 0.9)',
+                        '0 0 20px rgba(225, 29, 72, 0.9)',
+                        '0 0 12px rgba(225, 29, 72, 0.6)',
+                      ],
                     }}
                     transition={{
-                      duration: 1.5,
-                      times: [0, 0.15, 0.75, 1],
+                      duration: 3,
+                      times: [0, 0.15, 0.7, 1],
                       delay: i * 0.12,
                       repeat: Infinity,
-                      repeatDelay: 0.2,
+                      repeatDelay: 0.3,
                       ease: 'easeInOut',
                     }}
                     style={{ display: 'inline-block' }}
