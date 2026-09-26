@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCheck, FaTrash } from 'react-icons/fa';
+import { FaCheck, FaTrash } from 'react-icons/fa'; 
 
 const MAX_TOASTS = 2; // Sirf 2 toasts max screen pe
 
 export default function BookmarkToast() {
+  const navigate = useNavigate();
   const [toasts, setToasts] = useState([]);
   const timeoutsRef = useRef(new Map());
 
@@ -73,38 +75,47 @@ export default function BookmarkToast() {
           const isAdd = toast.action === 'added';
           return (
             <motion.div
-              key={toast.id}
-              layout
-              initial={{ opacity: 0, y: 40, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 40, scale: 0.8 }}
-              transition={{
-                type: 'spring',
-                stiffness: 400,
-                damping: 25,
-                layout: { duration: 0.2 },
-              }}
-              style={{
-                padding: '12px 20px',
-                borderRadius: 999,
-                background: 'rgba(15, 15, 18, 0.95)',
-                border: `1px solid ${
-                  isAdd ? 'rgba(251, 191, 36, 0.5)' : 'rgba(225, 29, 72, 0.5)'
-                }`,
-                boxShadow: isAdd
-                  ? '0 8px 32px rgba(251, 191, 36, 0.35), 0 0 24px rgba(251, 191, 36, 0.2)'
-                  : '0 8px 32px rgba(225, 29, 72, 0.35)',
-                backdropFilter: 'blur(14px)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                fontFamily: 'Space Grotesk, sans-serif',
-                fontSize: 13,
-                color: '#f5f5f5',
-                fontWeight: 500,
-                maxWidth: '90vw',
-              }}
-            >
+  key={toast.id}
+  layout
+  initial={{ opacity: 0, y: 40, scale: 0.8 }}
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  exit={{ opacity: 0, y: 40, scale: 0.8 }}
+  transition={{
+    type: 'spring',
+    stiffness: 400,
+    damping: 25,
+    layout: { duration: 0.2 },
+  }}
+  onClick={() => {
+    navigate('/bookmarks');
+    setToasts((t) => t.filter((x) => x.id !== toast.id));
+  }}
+  whileHover={{ scale: 1.03 }}
+  whileTap={{ scale: 0.97 }}
+  style={{
+    padding: '12px 20px',
+    borderRadius: 999,
+    background: 'rgba(15, 15, 18, 0.95)',
+    border: `1px solid ${
+      isAdd ? 'rgba(251, 191, 36, 0.5)' : 'rgba(225, 29, 72, 0.5)'
+    }`,
+    boxShadow: isAdd
+      ? '0 8px 32px rgba(251, 191, 36, 0.35), 0 0 24px rgba(251, 191, 36, 0.2)'
+      : '0 8px 32px rgba(225, 29, 72, 0.35)',
+    backdropFilter: 'blur(14px)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    fontFamily: 'Space Grotesk, sans-serif',
+    fontSize: 13,
+    color: '#f5f5f5',
+    fontWeight: 500,
+    maxWidth: '90vw',
+    cursor: 'pointer',
+    pointerEvents: 'auto',
+    userSelect: 'none',
+  }}
+>
               <motion.span
                 initial={{ rotate: -180, scale: 0 }}
                 animate={{ rotate: 0, scale: 1 }}
