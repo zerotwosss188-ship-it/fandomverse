@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import Bookmarks from './pages/Bookmarks';
 import Releases from './pages/Releases';
 import Trailers from './pages/Trailers';
+import BookmarkToast from './components/BookmarkToast';
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
         </div>
         <Footer />
         <Chatbot />
+        <BookmarkToast />
       </div>
     </BrowserRouter>
   );
