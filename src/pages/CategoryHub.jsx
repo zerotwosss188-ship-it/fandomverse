@@ -47,12 +47,12 @@ export default function CategoryHub() {
   const data = categoryData[slug] || { name: 'Unknown', Icon: FaBook, gradient: '#666' };
   const Icon = data.Icon;
 
-  // ============ ALL STATE DECLARATIONS (must come first) ============
+  // ============ ALL STATE DECLARATIONS ============
   const [activeTab, setActiveTab] = useState('articles');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
 
-  // Sort states per tab
+  // Sort states
   const [articleSort, setArticleSort] = useState('newest');
   const [charSort, setCharSort] = useState('name-asc');
   const [eventSort, setEventSort] = useState('date-asc');
@@ -72,8 +72,7 @@ export default function CategoryHub() {
   const [merchType, setMerchType] = useState('all');
   const [releaseType, setReleaseType] = useState('all');
 
-  // ============ EFFECTS (after all useState) ============
-  // ⭐ Reset all filters when slug changes
+  // ============ EFFECTS ============
   useEffect(() => {
     setActiveTab('articles');
     setSelectedTags([]);
@@ -119,7 +118,6 @@ export default function CategoryHub() {
   const filteredContent = useMemo(() => {
     let items = articlesInCategory;
 
-    // ⭐ Search filter (within this category only)
     const q = searchQuery.trim().toLowerCase();
     if (q) {
       items = items.filter((c) =>
@@ -177,9 +175,7 @@ export default function CategoryHub() {
         map.set(t, (map.get(t) || 0) + 1);
       });
     });
-    return Array.from(map.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 12);
+    return Array.from(map.entries()).sort((a, b) => b[1] - a[1]).slice(0, 12);
   }, [allCharsInCategory]);
 
   const filteredChars = useMemo(() => {
@@ -187,6 +183,18 @@ export default function CategoryHub() {
       charFranchise === 'all'
         ? allCharsInCategory
         : allCharsInCategory.filter((c) => c.series === charFranchise);
+
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter(
+        (c) =>
+          (c.name || '').toLowerCase().includes(q) ||
+          (c.series || '').toLowerCase().includes(q) ||
+          (c.bio || '').toLowerCase().includes(q) ||
+          (c.traits || []).some((t) => String(t).toLowerCase().includes(q))
+      );
+    }
 
     if (charTrait !== 'all') {
       items = items.filter((c) => (c.traits || []).includes(charTrait));
@@ -205,7 +213,7 @@ export default function CategoryHub() {
     }
 
     return items;
-  }, [allCharsInCategory, charFranchise, charTrait, charSort]);
+  }, [allCharsInCategory, charFranchise, charTrait, charSort, searchQuery]);
 
   // ============ EVENTS ============
   const eventsInCategory = useMemo(
@@ -224,6 +232,17 @@ export default function CategoryHub() {
         ? eventsInCategory
         : eventsInCategory.filter((e) => e.type === eventType);
 
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter(
+        (e) =>
+          (e.title || '').toLowerCase().includes(q) ||
+          (e.description || '').toLowerCase().includes(q) ||
+          (e.location || '').toLowerCase().includes(q)
+      );
+    }
+
     if (eventSort === 'date-asc') {
       items = [...items].sort((a, b) => new Date(a.date) - new Date(b.date));
     } else if (eventSort === 'date-desc') {
@@ -235,7 +254,7 @@ export default function CategoryHub() {
     }
 
     return items;
-  }, [eventsInCategory, eventType, eventSort]);
+  }, [eventsInCategory, eventType, eventSort, searchQuery]);
 
   // ============ MERCH ============
   const merchInCategory = useMemo(
@@ -250,6 +269,19 @@ export default function CategoryHub() {
 
   const filteredMerch = useMemo(() => {
     let items = merchInCategory;
+
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter(
+        (m) =>
+          (m.name || '').toLowerCase().includes(q) ||
+          (m.series || '').toLowerCase().includes(q) ||
+          (m.description || '').toLowerCase().includes(q) ||
+          (m.type || '').toLowerCase().includes(q)
+      );
+    }
+
     if (merchType !== 'all') {
       items = items.filter((m) => m.type === merchType);
     }
@@ -263,7 +295,7 @@ export default function CategoryHub() {
       items = [...items].sort((a, b) => b.name.localeCompare(a.name));
     }
     return items;
-  }, [merchInCategory, merchType, merchSort]);
+  }, [merchInCategory, merchType, merchSort, searchQuery]);
 
   // ============ TRAILERS ============
   const trailersInCategory = useMemo(
@@ -277,6 +309,17 @@ export default function CategoryHub() {
         ? trailersInCategory
         : trailersInCategory.filter((t) => t.releaseStatus === trailerStatus);
 
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter(
+        (t) =>
+          (t.title || '').toLowerCase().includes(q) ||
+          (t.series || '').toLowerCase().includes(q) ||
+          (t.category || '').toLowerCase().includes(q)
+      );
+    }
+
     if (trailerSort === 'newest') {
       items = [...items].sort((a, b) => new Date(b.date) - new Date(a.date));
     } else if (trailerSort === 'oldest') {
@@ -288,7 +331,7 @@ export default function CategoryHub() {
     }
 
     return items;
-  }, [trailersInCategory, trailerStatus, trailerSort]);
+  }, [trailersInCategory, trailerStatus, trailerSort, searchQuery]);
 
   // ============ VIDEOS ============
   const videosInCategory = useMemo(() => {
@@ -302,9 +345,24 @@ export default function CategoryHub() {
   }, [videosInCategory]);
 
   const filteredVideos = useMemo(() => {
-    if (videoType === 'all') return videosInCategory;
-    return videosInCategory.filter((v) => v.type === videoType);
-  }, [videosInCategory, videoType]);
+    let items =
+      videoType === 'all'
+        ? videosInCategory
+        : videosInCategory.filter((v) => v.type === videoType);
+
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter(
+        (v) =>
+          (v.title || '').toLowerCase().includes(q) ||
+          (v.series || '').toLowerCase().includes(q) ||
+          (v.channel || '').toLowerCase().includes(q)
+      );
+    }
+
+    return items;
+  }, [videosInCategory, videoType, searchQuery]);
 
   // ============ AUDIO ============
   const audioInCategory = useMemo(
@@ -323,6 +381,18 @@ export default function CategoryHub() {
         ? audioInCategory
         : audioInCategory.filter((a) => a.type === audioType);
 
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter(
+        (a) =>
+          (a.title || '').toLowerCase().includes(q) ||
+          (a.series || '').toLowerCase().includes(q) ||
+          (a.host || '').toLowerCase().includes(q) ||
+          (a.description || '').toLowerCase().includes(q)
+      );
+    }
+
     if (audioSort === 'newest') {
       items = [...items].sort((a, b) => new Date(b.date) - new Date(a.date));
     } else if (audioSort === 'oldest') {
@@ -334,7 +404,7 @@ export default function CategoryHub() {
     }
 
     return items;
-  }, [audioInCategory, audioType, audioSort]);
+  }, [audioInCategory, audioType, audioSort, searchQuery]);
 
   // ============ RELEASES ============
   const releasesInCategory = useMemo(
@@ -349,11 +419,20 @@ export default function CategoryHub() {
 
   const filteredReleases = useMemo(() => {
     let items = releasesInCategory;
+
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter((r) =>
+        (r.title || '').toLowerCase().includes(q)
+      );
+    }
+
     if (releaseType !== 'all') {
       items = items.filter((r) => r.type === releaseType);
     }
     return [...items].sort((a, b) => new Date(a.date) - new Date(b.date));
-  }, [releasesInCategory, releaseType]);
+  }, [releasesInCategory, releaseType, searchQuery]);
 
   // ============ GALLERY ============
   const galleryInCategory = useMemo(
@@ -372,6 +451,16 @@ export default function CategoryHub() {
         ? galleryInCategory
         : galleryInCategory.filter((g) => g.series === gallerySeriesFilter);
 
+    // ⭐ Search
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter(
+        (g) =>
+          (g.series || '').toLowerCase().includes(q) ||
+          (g.caption || '').toLowerCase().includes(q)
+      );
+    }
+
     if (gallerySort === 'series-asc') {
       items = [...items].sort((a, b) => (a.series || '').localeCompare(b.series || ''));
     } else if (gallerySort === 'series-desc') {
@@ -381,7 +470,7 @@ export default function CategoryHub() {
     }
 
     return items;
-  }, [galleryInCategory, gallerySeriesFilter, gallerySort]);
+  }, [galleryInCategory, gallerySeriesFilter, gallerySort, searchQuery]);
 
   const handleAddToCart = (item) => {
     const cart = JSON.parse(localStorage.getItem('fv_cart') || '[]');
@@ -454,7 +543,94 @@ export default function CategoryHub() {
         </p>
       </motion.div>
 
-      {/* Articles toolbar */}
+      {/* ⭐ Common Search Bar (all tabs) */}
+      <div style={{ marginBottom: 22 }}>
+        <div style={{ position: 'relative', maxWidth: 480 }}>
+          <FaSearch
+            style={{
+              position: 'absolute',
+              left: 14,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              color: '#a8a8a8',
+              fontSize: 12,
+              pointerEvents: 'none',
+              zIndex: 1,
+            }}
+          />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={`Search in ${data.name}…`}
+            style={{
+              width: '100%',
+              height: 42,
+              padding: '0 40px 0 40px',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(168, 85, 247, 0.3)',
+              borderRadius: 10,
+              color: '#f5f5f5',
+              fontSize: 14,
+              fontFamily: 'Space Grotesk, sans-serif',
+              outline: 'none',
+              boxSizing: 'border-box',
+              transition: 'border-color 0.15s',
+            }}
+            onFocus={(e) =>
+              (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)')
+            }
+            onBlur={(e) =>
+              (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)')
+            }
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              aria-label="Clear search"
+              style={{
+                position: 'absolute',
+                right: 12,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.06)',
+                border: 'none',
+                color: '#a0a0a0',
+                display: 'grid',
+                placeItems: 'center',
+                cursor: 'pointer',
+                fontSize: 10,
+              }}
+            >
+              <FaTimes />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="fv-tabs-wrapper" style={{ marginBottom: 32 }}>
+        <AnimatedTabs
+          tabs={tabs}
+          activeTab={activeTab}
+          onChange={(id) => {
+            setActiveTab(id);
+            if (id !== 'trailers') setTrailerStatus('all');
+            if (id !== 'characters') setCharFranchise('all');
+            if (id !== 'events') setEventType('all');
+            if (id !== 'audio') setAudioType('all');
+            if (id !== 'gallery') setGallerySeriesFilter('all');
+            if (id !== 'merchandise') setMerchType('all');
+          }}
+          variant="underline"
+        />
+      </div>
+
+      {/* Articles-only toolbar (sort + tags) */}
       {activeTab === 'articles' && (
         <div style={{ marginBottom: 22 }}>
           <div
@@ -465,43 +641,6 @@ export default function CategoryHub() {
               alignItems: 'center',
             }}
           >
-            <div style={{ position: 'relative', flex: '1 1 280px', maxWidth: 380 }}>
-              <FaSearch
-                style={{
-                  position: 'absolute',
-                  left: 14,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  color: '#a8a8a8',
-                  fontSize: 12,
-                  pointerEvents: 'none',
-                  zIndex: 1,
-                }}
-              />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={`Search in ${data.name}…`}
-                style={{
-                  width: '100%',
-                  height: 40,
-                  padding: '0 14px 0 36px',
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(168, 85, 247, 0.3)',
-                  borderRadius: 10,
-                  color: '#f5f5f5',
-                  fontSize: 13,
-                  fontFamily: 'Space Grotesk, sans-serif',
-                  outline: 'none',
-                  boxSizing: 'border-box',
-                  transition: 'border-color 0.15s',
-                }}
-                onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)')}
-                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)')}
-              />
-            </div>
-
             <SortSelect
               value={articleSort}
               onChange={setArticleSort}
@@ -594,24 +733,6 @@ export default function CategoryHub() {
           )}
         </div>
       )}
-
-      {/* Tabs */}
-      <div className="fv-tabs-wrapper" style={{ marginBottom: 32 }}>
-        <AnimatedTabs
-          tabs={tabs}
-          activeTab={activeTab}
-          onChange={(id) => {
-            setActiveTab(id);
-            if (id !== 'trailers') setTrailerStatus('all');
-            if (id !== 'characters') setCharFranchise('all');
-            if (id !== 'events') setEventType('all');
-            if (id !== 'audio') setAudioType('all');
-            if (id !== 'gallery') setGallerySeriesFilter('all');
-            if (id !== 'merchandise') setMerchType('all');
-          }}
-          variant="underline"
-        />
-      </div>
 
       {/* Articles */}
       {activeTab === 'articles' && (
@@ -888,7 +1009,7 @@ export default function CategoryHub() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(420px, 1fr))',
               gap: 16,
             }}
           >
@@ -960,7 +1081,7 @@ export default function CategoryHub() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
               gap: 16,
             }}
           >
@@ -1045,7 +1166,7 @@ export default function CategoryHub() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
               gap: 16,
             }}
           >
@@ -1196,7 +1317,7 @@ export default function CategoryHub() {
             </div>
           </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {filteredReleases.map((r) => (
               <ReleaseRow key={r.id} release={r} />
             ))}
