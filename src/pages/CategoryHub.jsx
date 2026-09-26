@@ -38,7 +38,7 @@ const tabs = [
   { id: 'audio', label: 'Audio' },
   { id: 'gallery', label: 'Gallery' },
   { id: 'merchandise', label: 'Merchandise' },
-  { id: 'releases', label: 'Releases' },   // ⭐ ADD
+  { id: 'releases', label: 'Releases' },
 ];
 
 export default function CategoryHub() {
@@ -46,21 +46,9 @@ export default function CategoryHub() {
   const data = categoryData[slug] || { name: 'Unknown', Icon: FaBook, gradient: '#666' };
   const Icon = data.Icon;
 
+  // ============ ALL STATE DECLARATIONS (must come first) ============
   const [activeTab, setActiveTab] = useState('articles');
-    // ⭐ Reset all filters when slug changes
-    useEffect(() => {
-      setActiveTab('articles');
-      setSelectedTags([]);
-      setCharFranchise('all');
-      setCharTrait('all');
-    setVideoType('all');
-      setEventType('all');
-      setTrailerStatus('all');
-      setAudioType('all');
-      setGallerySeriesFilter('all');
-      setMerchType('all');
-      setReleaseType('all');   // ⭐ ADD
-    }, [slug]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
 
   // Sort states per tab
@@ -81,8 +69,26 @@ export default function CategoryHub() {
   const [audioType, setAudioType] = useState('all');
   const [gallerySeriesFilter, setGallerySeriesFilter] = useState('all');
   const [merchType, setMerchType] = useState('all');
-  const [releaseType, setReleaseType] = useState('all');   // ⭐ ADD
+  const [releaseType, setReleaseType] = useState('all');
 
+  // ============ EFFECTS (after all useState) ============
+  // ⭐ Reset all filters when slug changes
+  useEffect(() => {
+    setActiveTab('articles');
+    setSelectedTags([]);
+    setCharFranchise('all');
+    setCharTrait('all');
+    setVideoType('all');
+    setEventType('all');
+    setTrailerStatus('all');
+    setAudioType('all');
+    setGallerySeriesFilter('all');
+    setMerchType('all');
+    setReleaseType('all');
+    setSearchQuery('');
+  }, [slug]);
+
+  // ============ DATA HOOKS ============
   const { data: contentData } = useData('content');
   const { data: charData } = useData('characters');
   const { data: eventData } = useData('events');
@@ -91,7 +97,7 @@ export default function CategoryHub() {
   const { data: videoData } = useData('videos');
   const { data: galleryData } = useData('galleries');
   const { data: audioData } = useData('audio');
-  const { data: releaseData } = useData('releases');   // ⭐ ADD
+  const { data: releaseData } = useData('releases');
 
   // ============ ARTICLES ============
   const articlesInCategory = useMemo(() => {
@@ -112,6 +118,16 @@ export default function CategoryHub() {
   const filteredContent = useMemo(() => {
     let items = articlesInCategory;
 
+    // ⭐ Search filter (within this category only)
+    const q = searchQuery.trim().toLowerCase();
+    if (q) {
+      items = items.filter((c) =>
+        (c.title || '').toLowerCase().includes(q) ||
+        (c.excerpt || '').toLowerCase().includes(q) ||
+        (c.series || '').toLowerCase().includes(q) ||
+        (c.tags || []).some((t) => String(t).toLowerCase().includes(q))
+      );
+    }
 
     if (selectedTags.length > 0) {
       items = items.filter((c) =>
@@ -132,7 +148,7 @@ export default function CategoryHub() {
     }
 
     return items;
-  }, [articlesInCategory, articleSort, selectedTags]);
+  }, [articlesInCategory, articleSort, selectedTags, searchQuery]);
 
   const toggleTag = (tag) => {
     setSelectedTags((prev) =>
@@ -153,7 +169,6 @@ export default function CategoryHub() {
     return ['all', ...Array.from(set)];
   }, [allCharsInCategory]);
 
-  // ⭐ Traits with counts, sorted by frequency
   const charTraits = useMemo(() => {
     const map = new Map();
     allCharsInCategory.forEach((c) => {
@@ -189,12 +204,11 @@ export default function CategoryHub() {
     }
 
     return items;
-  }, [allCharsInCategory, charFranchise, charSort]);
+  }, [allCharsInCategory, charFranchise, charTrait, charSort]);
 
   // ============ EVENTS ============
   const eventsInCategory = useMemo(
-    () =>
-      eventData ? eventData.events.filter((e) => e.category === slug) : [],
+    () => (eventData ? eventData.events.filter((e) => e.category === slug) : []),
     [eventData, slug]
   );
 
@@ -252,8 +266,7 @@ export default function CategoryHub() {
 
   // ============ TRAILERS ============
   const trailersInCategory = useMemo(
-    () =>
-      trailerData ? trailerData.trailers.filter((t) => t.category === slug) : [],
+    () => (trailerData ? trailerData.trailers.filter((t) => t.category === slug) : []),
     [trailerData, slug]
   );
 
@@ -323,23 +336,23 @@ export default function CategoryHub() {
   }, [audioInCategory, audioType, audioSort]);
 
   // ============ RELEASES ============
-const releasesInCategory = useMemo(
-  () => (releaseData ? releaseData.releases.filter((r) => r.category === slug) : []),
-  [releaseData, slug]
-);
+  const releasesInCategory = useMemo(
+    () => (releaseData ? releaseData.releases.filter((r) => r.category === slug) : []),
+    [releaseData, slug]
+  );
 
-const releaseTypes = useMemo(() => {
-  const set = new Set(releasesInCategory.map((r) => r.type).filter(Boolean));
-  return ['all', ...Array.from(set)];
-}, [releasesInCategory]);
+  const releaseTypes = useMemo(() => {
+    const set = new Set(releasesInCategory.map((r) => r.type).filter(Boolean));
+    return ['all', ...Array.from(set)];
+  }, [releasesInCategory]);
 
-const filteredReleases = useMemo(() => {
-  let items = releasesInCategory;
-  if (releaseType !== 'all') {
-    items = items.filter((r) => r.type === releaseType);
-  }
-  return [...items].sort((a, b) => new Date(a.date) - new Date(b.date));
-}, [releasesInCategory, releaseType]);
+  const filteredReleases = useMemo(() => {
+    let items = releasesInCategory;
+    if (releaseType !== 'all') {
+      items = items.filter((r) => r.type === releaseType);
+    }
+    return [...items].sort((a, b) => new Date(a.date) - new Date(b.date));
+  }, [releasesInCategory, releaseType]);
 
   // ============ GALLERY ============
   const galleryInCategory = useMemo(
@@ -451,36 +464,7 @@ const filteredReleases = useMemo(() => {
               alignItems: 'center',
             }}
           >
-              <button
-  type="button"
-  onClick={() => {
-    window.location.href = `/search?category=${slug}`;
-  }}
-              style={{
-                position: 'relative',
-                flex: '1 1 280px',
-                maxWidth: 380,
-                cursor: 'text',
-                height: 40,
-                padding: '0 14px 0 36px',
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(168, 85, 247, 0.3)',
-                borderRadius: 10,
-                color: '#a8a8a8',
-                fontSize: 13,
-                fontFamily: 'Space Grotesk, sans-serif',
-                textAlign: 'left',
-                display: 'inline-flex',
-                alignItems: 'center',
-                transition: 'border-color 0.15s',
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)')
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)')
-              }
-            >
+            <div style={{ position: 'relative', flex: '1 1 280px', maxWidth: 380 }}>
               <FaSearch
                 style={{
                   position: 'absolute',
@@ -489,10 +473,33 @@ const filteredReleases = useMemo(() => {
                   transform: 'translateY(-50%)',
                   color: '#a8a8a8',
                   fontSize: 12,
+                  pointerEvents: 'none',
+                  zIndex: 1,
                 }}
               />
-              Search all fandoms…
-            </button>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={`Search in ${data.name}…`}
+                style={{
+                  width: '100%',
+                  height: 40,
+                  padding: '0 14px 0 36px',
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(168, 85, 247, 0.3)',
+                  borderRadius: 10,
+                  color: '#f5f5f5',
+                  fontSize: 13,
+                  fontFamily: 'Space Grotesk, sans-serif',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                  transition: 'border-color 0.15s',
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)')}
+                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)')}
+              />
+            </div>
 
             <SortSelect
               value={articleSort}
@@ -557,28 +564,26 @@ const filteredReleases = useMemo(() => {
                 const isActive = selectedTags.includes(tag);
                 return (
                   <button
-                  key={tag}
-                  onClick={() => toggleTag(tag)}
-                  style={{
-                    padding: '5px 11px',
-                    fontSize: 11,
-                    borderRadius: 999,
-                    background: isActive
-                      ? 'rgba(168, 85, 247, 0.18)'
-                      : 'rgba(255,255,255,0.04)',
-                    border: isActive
-                      ? '1px solid rgba(168, 85, 247, 0.8)'
-                      : '1px solid rgba(168, 85, 247, 0.3)',
-                    color: isActive ? '#c4b5fd' : '#a0a0a0',
-                    cursor: 'pointer',
-                    fontFamily: 'Space Grotesk, sans-serif',
-                    fontWeight: 500,
-                    transition: 'all 0.15s',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 5,
-                  }}
-                >
+                    key={tag}
+                    onClick={() => toggleTag(tag)}
+                    style={{
+                      padding: '5px 11px',
+                      fontSize: 11,
+                      borderRadius: 999,
+                      background: isActive ? 'rgba(168, 85, 247, 0.18)' : 'rgba(255,255,255,0.04)',
+                      border: isActive
+                        ? '1px solid rgba(168, 85, 247, 0.8)'
+                        : '1px solid rgba(168, 85, 247, 0.3)',
+                      color: isActive ? '#c4b5fd' : '#a0a0a0',
+                      cursor: 'pointer',
+                      fontFamily: 'Space Grotesk, sans-serif',
+                      fontWeight: 500,
+                      transition: 'all 0.15s',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 5,
+                    }}
+                  >
                     #{tag}
                     <span style={{ opacity: 0.6, fontSize: 10 }}>{count}</span>
                   </button>
@@ -623,10 +628,9 @@ const filteredReleases = useMemo(() => {
         </div>
       )}
 
-            {/* Characters */}
-            {activeTab === 'characters' && (
+      {/* Characters */}
+      {activeTab === 'characters' && (
         <>
-          {/* Trait filter chips */}
           {charTraits.length > 0 && charFranchise === 'all' && (
             <div
               style={{
@@ -656,10 +660,7 @@ const filteredReleases = useMemo(() => {
                   padding: '5px 11px',
                   fontSize: 11,
                   borderRadius: 999,
-                  background:
-                    charTrait === 'all'
-                      ? 'rgba(34, 211, 238, 0.18)'
-                      : 'rgba(255,255,255,0.04)',
+                  background: charTrait === 'all' ? 'rgba(34, 211, 238, 0.18)' : 'rgba(255,255,255,0.04)',
                   border:
                     charTrait === 'all'
                       ? '1px solid rgba(34, 211, 238, 0.8)'
@@ -677,16 +678,12 @@ const filteredReleases = useMemo(() => {
                 return (
                   <button
                     key={trait}
-                    onClick={() =>
-                      setCharTrait(isActive ? 'all' : trait)
-                    }
+                    onClick={() => setCharTrait(isActive ? 'all' : trait)}
                     style={{
                       padding: '5px 11px',
                       fontSize: 11,
                       borderRadius: 999,
-                      background: isActive
-                        ? 'rgba(34, 211, 238, 0.18)'
-                        : 'rgba(255,255,255,0.04)',
+                      background: isActive ? 'rgba(34, 211, 238, 0.18)' : 'rgba(255,255,255,0.04)',
                       border: isActive
                         ? '1px solid rgba(34, 211, 238, 0.8)'
                         : '1px solid rgba(34, 211, 238, 0.3)',
@@ -700,9 +697,7 @@ const filteredReleases = useMemo(() => {
                     }}
                   >
                     {trait}
-                    <span style={{ opacity: 0.6, fontSize: 10 }}>
-                      {count}
-                    </span>
+                    <span style={{ opacity: 0.6, fontSize: 10 }}>{count}</span>
                   </button>
                 );
               })}
@@ -935,9 +930,7 @@ const filteredReleases = useMemo(() => {
                       padding: '6px 14px',
                       fontSize: 12,
                       borderRadius: 8,
-                      background: isActive
-                        ? 'rgba(225, 29, 72, 0.15)'
-                        : 'rgba(255,255,255,0.04)',
+                      background: isActive ? 'rgba(225, 29, 72, 0.15)' : 'rgba(255,255,255,0.04)',
                       border: isActive
                         ? '1px solid rgba(225, 29, 72, 0.4)'
                         : '1px solid rgba(255,255,255,0.08)',
@@ -1166,8 +1159,9 @@ const filteredReleases = useMemo(() => {
           </div>
         </>
       )}
-            {/* Releases */}
-            {activeTab === 'releases' && (
+
+      {/* Releases */}
+      {activeTab === 'releases' && (
         <>
           <div
             style={{
