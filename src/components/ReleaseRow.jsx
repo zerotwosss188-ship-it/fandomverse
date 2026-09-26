@@ -1,14 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaCalendarAlt,
   FaArrowRight,
   FaClock,
   FaFire,
-  FaTag,
 } from 'react-icons/fa';
-import { useData } from '../hooks/useData';
-import Breadcrumbs from '../components/Breadcrumbs';
 
 const catColors = {
   anime: '#f472b6',
@@ -30,27 +27,16 @@ const catNames = {
   manga: 'Manga',
 };
 
-const categories = [
-  'all',
-  'anime',
-  'gaming',
-  'movies',
-  'tv-shows',
-  'kpop',
-  'comics',
-  'manga',
-];
-
 // ============================================================
 // Series → banner image map
 // ============================================================
-const SERIES_IMAGES = {
+export const SERIES_IMAGES = {
   // Gaming
   'GTA VI': '/images/banners/gta-vi.jpg',
   'GTA V': '/images/banners/gta-v.jpg',
   'Hades II': '/images/banners/hades.jpg',
   'Hades II Console': '/images/banners/hades.jpg',
-  'Hades': '/images/banners/hades.jpg',
+  Hades: '/images/banners/hades.jpg',
   'God of War': '/images/banners/god-of-war.jpg',
   'Elden Ring': '/images/banners/elden-ring.jpg',
   Minecraft: '/images/banners/minecraft.jpg',
@@ -144,7 +130,7 @@ const CATEGORY_FALLBACKS = {
   manga: '/images/banners/one-piece.jpg',
 };
 
-function getImageForRelease(release) {
+export function getImageForRelease(release) {
   if (release.title && SERIES_IMAGES[release.title]) {
     return SERIES_IMAGES[release.title];
   }
@@ -162,212 +148,15 @@ function getImageForRelease(release) {
   return CATEGORY_FALLBACKS[release.category] || null;
 }
 
-// ⭐ Release type → icon
 function getTypeIcon(type) {
   const t = (type || '').toLowerCase();
-  if (t.includes('game')) return <FaFire />;
-  if (t.includes('album') || t.includes('concert')) return <FaFire />;
+  if (t.includes('game') || t.includes('album') || t.includes('concert'))
+    return <FaFire />;
   if (t.includes('premiere') || t.includes('movie')) return <FaClock />;
   return <FaCalendarAlt />;
 }
 
-export default function Releases() {
-  const { data } = useData('releases');
-  const [categoryFilter, setCategoryFilter] = useState('all');
-  const [timeFilter, setTimeFilter] = useState('upcoming');
-
-  const filtered = useMemo(() => {
-    if (!data?.releases) return [];
-    let items = [...data.releases];
-
-    if (categoryFilter !== 'all') {
-      items = items.filter((r) => r.category === categoryFilter);
-    }
-
-    const now = new Date();
-    if (timeFilter === 'upcoming') {
-      items = items.filter((r) => new Date(r.date) >= now);
-    } else if (timeFilter === 'past') {
-      items = items.filter((r) => new Date(r.date) < now);
-    }
-
-    items.sort((a, b) => {
-      const da = new Date(a.date);
-      const db = new Date(b.date);
-      return timeFilter === 'past' ? db - da : da - db;
-    });
-
-    return items;
-  }, [data, categoryFilter, timeFilter]);
-
-  const groupedByMonth = useMemo(() => {
-    const groups = {};
-    filtered.forEach((item) => {
-      const d = new Date(item.date);
-      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-      const label = d.toLocaleDateString('en-US', {
-        month: 'long',
-        year: 'numeric',
-      });
-      if (!groups[key]) groups[key] = { label, items: [] };
-      groups[key].items.push(item);
-    });
-    return Object.entries(groups).sort(([a], [b]) =>
-      timeFilter === 'past' ? b.localeCompare(a) : a.localeCompare(b)
-    );
-  }, [filtered, timeFilter]);
-
-  return (
-    <div className="fv-container" style={{ padding: '56px 24px 80px' }}>
-      <Breadcrumbs items={[{ label: 'Releases' }]} />
-
-      {/* Header */}
-      <div style={{ marginBottom: 32 }}>
-        <h1
-          style={{
-            fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
-            fontFamily: 'Orbitron, sans-serif',
-            fontWeight: 800,
-            color: '#f5f5f5',
-            marginBottom: 8,
-            letterSpacing: '0.01em',
-          }}
-        >
-          Releases
-        </h1>
-        <p
-          style={{
-            fontSize: 14,
-            color: '#a0a0a0',
-            margin: 0,
-            fontFamily: 'Space Grotesk, sans-serif',
-          }}
-        >
-          Track every premiere, game drop, album, and movie across all fandoms.
-        </p>
-      </div>
-
-      {/* Filters */}
-      <div
-        style={{
-          display: 'flex',
-          gap: 24,
-          flexWrap: 'wrap',
-          marginBottom: 28,
-          paddingBottom: 24,
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-        }}
-      >
-        <FilterGroup
-          label="Time"
-          options={[
-            { id: 'upcoming', label: 'Upcoming' },
-            { id: 'past', label: 'Past' },
-            { id: 'all', label: 'All' },
-          ]}
-          value={timeFilter}
-          onChange={setTimeFilter}
-        />
-        <FilterGroup
-          label="Category"
-          options={categories.map((c) => ({
-            id: c,
-            label: c === 'all' ? 'All' : catNames[c] || c,
-          }))}
-          value={categoryFilter}
-          onChange={setCategoryFilter}
-        />
-      </div>
-
-      {/* Count */}
-      <p
-        style={{
-          fontSize: 13,
-          color: '#a8a8a8',
-          marginBottom: 24,
-          fontFamily: 'Space Grotesk, sans-serif',
-        }}
-      >
-        {filtered.length} release{filtered.length !== 1 ? 's' : ''}
-      </p>
-
-      {filtered.length === 0 ? (
-        <div
-          style={{
-            padding: 60,
-            textAlign: 'center',
-            color: '#a8a8a8',
-            fontSize: 14,
-            background: '#151518',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
-            borderRadius: 16,
-          }}
-        >
-          No releases found in this filter.
-        </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-          {groupedByMonth.map(([key, group]) => (
-            <div key={key}>
-              {/* Month header */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 16,
-                  marginBottom: 18,
-                }}
-              >
-                <h2
-                  style={{
-                    fontSize: 15,
-                    fontFamily: 'Orbitron, sans-serif',
-                    fontWeight: 700,
-                    color: '#f5f5f5',
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    margin: 0,
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {group.label}
-                </h2>
-                <div
-                  style={{
-                    flex: 1,
-                    height: 1,
-                    background: 'rgba(255, 255, 255, 0.06)',
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: 12,
-                    color: '#a8a8a8',
-                    fontFamily: 'Space Grotesk, sans-serif',
-                  }}
-                >
-                  {group.items.length} item{group.items.length !== 1 ? 's' : ''}
-                </span>
-              </div>
-
-              {/* Rows */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {group.items.map((r) => (
-                  <ReleaseRow key={r.id} release={r} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ============================================================
-// Release Row — Full featured with hover banner
-// ============================================================
-function ReleaseRow({ release: r }) {
+export default function ReleaseRow({ release: r }) {
   const [hovered, setHovered] = useState(false);
   const date = new Date(r.date);
   const now = new Date();
@@ -378,7 +167,6 @@ function ReleaseRow({ release: r }) {
   const bgImage = getImageForRelease(r);
   const showBanner = hovered && bgImage;
 
-  // ⭐ Google Calendar link
   const dateStr = r.date.replace(/-/g, '');
   const calendarUrl =
     `https://calendar.google.com/calendar/render?action=TEMPLATE` +
@@ -406,7 +194,7 @@ function ReleaseRow({ release: r }) {
         boxShadow: showBanner ? `0 8px 30px ${color}22` : 'none',
       }}
     >
-      {/* ⭐ Banner background — hover pe fade in */}
+      {/* Banner background */}
       {bgImage && (
         <div
           style={{
@@ -426,7 +214,7 @@ function ReleaseRow({ release: r }) {
         />
       )}
 
-      {/* ⭐ Overlay gradient */}
+      {/* Overlay */}
       {bgImage && (
         <div
           style={{
@@ -498,7 +286,6 @@ function ReleaseRow({ release: r }) {
 
         {/* Info */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          {/* Row 1: type + category badge */}
           <div
             style={{
               display: 'flex',
@@ -543,7 +330,6 @@ function ReleaseRow({ release: r }) {
             </span>
           </div>
 
-          {/* Title */}
           <div
             style={{
               fontSize: 16,
@@ -562,7 +348,6 @@ function ReleaseRow({ release: r }) {
             {r.title}
           </div>
 
-          {/* Meta row */}
           <div
             style={{
               display: 'flex',
@@ -679,56 +464,6 @@ function ReleaseRow({ release: r }) {
             <FaArrowRight style={{ fontSize: 9 }} />
           </Link>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function FilterGroup({ label, options, value, onChange }) {
-  return (
-    <div>
-      <div
-        style={{
-          fontSize: 11,
-          color: '#a8a8a8',
-          letterSpacing: '0.14em',
-          textTransform: 'uppercase',
-          fontFamily: 'Orbitron, sans-serif',
-          fontWeight: 600,
-          marginBottom: 10,
-        }}
-      >
-        {label}
-      </div>
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-        {options.map((opt) => {
-          const isActive = value === opt.id;
-          return (
-            <button
-              key={opt.id}
-              type="button"
-              onClick={() => onChange(opt.id)}
-              style={{
-                padding: '6px 14px',
-                fontSize: 12,
-                borderRadius: 8,
-                background: isActive
-                  ? 'rgba(225, 29, 72, 0.15)'
-                  : 'rgba(255, 255, 255, 0.04)',
-                border: isActive
-                  ? '1px solid rgba(225, 29, 72, 0.4)'
-                  : '1px solid rgba(255, 255, 255, 0.08)',
-                color: isActive ? '#fda4af' : '#a0a0a0',
-                cursor: 'pointer',
-                fontFamily: 'Space Grotesk, sans-serif',
-                fontWeight: 500,
-                transition: 'all 0.15s ease',
-              }}
-            >
-              {opt.label}
-            </button>
-          );
-        })}
       </div>
     </div>
   );

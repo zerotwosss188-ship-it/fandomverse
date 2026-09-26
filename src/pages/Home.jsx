@@ -12,6 +12,7 @@ import CategoryRow from '../components/CategoryRow';
 import FeaturedCarousel from '../components/FeaturedCarousel';
 import IntroVideoBackground from '../components/IntroVideoBackground';
 import { useData } from '../hooks/useData';
+import NewsTicker from '../components/NewsTicker';
 
 function getHeroMix(allContent) {
   if (!allContent || allContent.length === 0) return [];
@@ -330,6 +331,8 @@ export default function Home() {
           overflow: 'hidden',
           padding: '60px 24px 60px',
           marginBottom: 48,
+          minHeight: 480,
+          background: 'linear-gradient(135deg, #1a0508, #0a0d18)',
         }}
       >
         {/* Full-width video background */}
@@ -340,12 +343,13 @@ export default function Home() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          style={{
-            position: 'relative',
-            zIndex: 1,
-            maxWidth: 1100,
-            margin: '0 auto',
-          }}
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          maxWidth: 'min(1400px, 92vw)',
+          margin: '0 auto',
+          width: '100%',
+        }}
         >
           {/* FLEX ROW: Orb left + Text right */}
           <div
@@ -360,7 +364,7 @@ export default function Home() {
             <div
               style={{
                 flex: '1 1 100%',
-                maxWidth: 780,
+                maxWidth: 'min(1100px, 85vw)',
                 textAlign: 'left',
                 display: 'flex',
                 flexDirection: 'column',
@@ -500,9 +504,10 @@ export default function Home() {
               marginTop: 32,
               paddingTop: 24,
               borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              maxWidth: 900,
+              maxWidth: 'min(1600px, 92vw)',
               marginLeft: 'auto',
               marginRight: 'auto',
+              width: '100%',
             }}
           >
             {[
@@ -652,6 +657,11 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* ============ NEWS TICKER ============ */}
+      <div style={{ marginTop: 0, marginBottom: 40 }}>
+        <NewsTicker />
+      </div>
 
       {/* ============ CATEGORY ROWS (mixed content) ============ */}
       {contentData?.content && (

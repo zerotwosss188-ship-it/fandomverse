@@ -11,7 +11,7 @@ const defaultNews = [
   { tag: 'ANIME', text: 'Jujutsu Kaisen movie confirmed for late 2026' },
 ];
 
-export default function NewsTicker({ items = defaultNews, speed = 100 }) {
+export default function NewsTicker({ items = defaultNews, speed = 60 }) {
   const loop = [...items, ...items];
 
   return (
@@ -23,22 +23,22 @@ export default function NewsTicker({ items = defaultNews, speed = 100 }) {
         overflow: 'hidden',
         borderTop: '1px solid rgba(255, 255, 255, 0.06)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-        background: 'rgba(10, 10, 10, 0.85)',
+        background: 'rgba(10, 10, 10, 0.9)',
         backdropFilter: 'blur(14px)',
-        height: 46,
+        height: 40,
+        position: 'relative',
       }}
     >
       {/* LIVE badge */}
       <div
         style={{
           flexShrink: 0,
-          padding: '0 20px',
-          marginRight: 20,
+          padding: '0 18px',
           background: 'linear-gradient(135deg, #e11d48, #a855f7)',
           display: 'flex',
           alignItems: 'center',
           gap: 8,
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: 700,
           fontFamily: 'Orbitron, sans-serif',
           letterSpacing: '0.15em',
@@ -68,7 +68,7 @@ export default function NewsTicker({ items = defaultNews, speed = 100 }) {
             top: 0,
             bottom: 0,
             width: 24,
-            background: 'linear-gradient(90deg, rgba(10,10,10,0.9), transparent)',
+            background: 'linear-gradient(90deg, rgba(10,10,10,0.95), transparent)',
             zIndex: 2,
             pointerEvents: 'none',
           }}
@@ -80,7 +80,7 @@ export default function NewsTicker({ items = defaultNews, speed = 100 }) {
             top: 0,
             bottom: 0,
             width: 24,
-            background: 'linear-gradient(270deg, rgba(10,10,10,0.9), transparent)',
+            background: 'linear-gradient(270deg, rgba(10,10,10,0.95), transparent)',
             zIndex: 2,
             pointerEvents: 'none',
           }}
@@ -88,48 +88,62 @@ export default function NewsTicker({ items = defaultNews, speed = 100 }) {
 
         {/* Track */}
         <div
+          className="fv-ticker-track"
           style={{
             display: 'flex',
-            gap: 110,
+            gap: 70,
             animation: `fv-ticker ${speed}s linear infinite`,
             whiteSpace: 'nowrap',
             width: 'max-content',
-            paddingLeft: 40,
-            paddingRight: 40,
+            paddingLeft: 20,
+            paddingRight: 20,
+            willChange: 'transform',
+            transform: 'translate3d(0, 0, 0)',
           }}
-        >
-          {loop.map((item, idx) => (
+        >          {loop.map((item, idx) => (
             <div
               key={idx}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 14,
-                fontSize: 14,
+                gap: 12,
+                fontSize: 13,
                 fontFamily: 'Space Grotesk, sans-serif',
+                flexShrink: 0, // ⭐ CRITICAL — isi se overlap fix hua
+                lineHeight: 1,
               }}
             >
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 9,
                   fontWeight: 700,
                   letterSpacing: '0.1em',
-                  padding: '4px 10px',
+                  padding: '3px 8px',
                   borderRadius: 4,
                   background: getTagColor(item.tag),
                   color: '#fff',
                   fontFamily: 'Orbitron, sans-serif',
+                  flexShrink: 0,
+                  lineHeight: 1.2,
                 }}
               >
                 {item.tag}
               </span>
-              <span style={{ color: '#e2e8f0' }}>{item.text}</span>
+              <span
+                style={{
+                  color: '#e2e8f0',
+                  flexShrink: 0,
+                }}
+              >
+                {item.text}
+              </span>
               <span
                 style={{
                   color: '#e11d48',
-                  fontSize: 10,
+                  fontSize: 9,
                   opacity: 0.7,
-                  marginLeft: 6,
+                  marginLeft: 4,
+                  flexShrink: 0,
                 }}
               >
                 ◆
@@ -138,13 +152,6 @@ export default function NewsTicker({ items = defaultNews, speed = 100 }) {
           ))}
         </div>
       </div>
-
-      <style>{`
-        @keyframes fv-ticker {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   );
 }

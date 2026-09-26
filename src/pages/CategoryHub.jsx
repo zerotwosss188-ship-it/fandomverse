@@ -17,6 +17,7 @@ import VideoCard from '../components/VideoCard';
 import VideosBrowser from '../components/VideosBrowser';
 import GalleryGrid from '../components/GalleryGrid';
 import AudioCard from '../components/AudioCard';
+import ReleaseRow from '../components/ReleaseRow';
 import { useData } from '../hooks/useData';
 
 const categoryData = {
@@ -1195,95 +1196,10 @@ export default function CategoryHub() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {filteredReleases.map((r) => {
-              const date = new Date(r.date);
-              const daysLeft = Math.ceil((date - new Date()) / (1000 * 60 * 60 * 24));
-              const isPast = daysLeft < 0;
-              return (
-                <div
-                  key={r.id}
-                  style={{
-                    padding: 18,
-                    background: '#151518',
-                    border: '1px solid rgba(255, 255, 255, 0.06)',
-                    borderRadius: 14,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 16,
-                    opacity: isPast ? 0.65 : 1,
-                  }}
-                >
-                  <div
-                    style={{
-                      flexShrink: 0,
-                      width: 64,
-                      textAlign: 'center',
-                      padding: '8px 0',
-                      borderRadius: 10,
-                      background: 'rgba(96, 165, 250, 0.1)',
-                      border: '1px solid rgba(96, 165, 250, 0.4)',
-                      color: '#60a5fa',
-                      fontFamily: 'Orbitron, sans-serif',
-                    }}
-                  >
-                    <div style={{ fontSize: 10, letterSpacing: '0.1em' }}>
-                      {date.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
-                    </div>
-                    <div style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.1 }}>
-                      {date.getDate()}
-                    </div>
-                    <div style={{ fontSize: 9, opacity: 0.7 }}>
-                      {date.getFullYear()}
-                    </div>
-                  </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{
-                        fontSize: 10,
-                        color: '#60a5fa',
-                        letterSpacing: '0.14em',
-                        textTransform: 'uppercase',
-                        fontFamily: 'Orbitron, sans-serif',
-                        fontWeight: 700,
-                        marginBottom: 4,
-                      }}
-                    >
-                      {r.type}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 15,
-                        fontFamily: 'Orbitron, sans-serif',
-                        fontWeight: 600,
-                        color: '#f5f5f5',
-                        marginBottom: 4,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {r.title}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 12,
-                        color: isPast ? '#a8a8a8' : '#a0a0a0',
-                        fontFamily: 'Space Grotesk, sans-serif',
-                      }}
-                    >
-                      {isPast
-                        ? `${Math.abs(daysLeft)} days ago`
-                        : daysLeft === 0
-                        ? 'Today'
-                        : daysLeft === 1
-                        ? 'Tomorrow'
-                        : `in ${daysLeft} days`}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {filteredReleases.map((r) => (
+              <ReleaseRow key={r.id} release={r} />
+            ))}
             {filteredReleases.length === 0 && <EmptyState />}
           </div>
         </>

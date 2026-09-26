@@ -1263,9 +1263,6 @@ export default function Navbar() {
               flexShrink: 0,
             }}
           >
-            <div className="fv-nav-search">
-              <GlobalSearch />
-            </div>
 
             <Link
               to="/releases"
@@ -1643,12 +1640,7 @@ export default function Navbar() {
             50% { opacity: 0.4; transform: scale(0.85); }
           }
 
-          @media (max-width: 1280px) {
-            .fv-nav-search { display: none !important; }
-            .fv-nav-search + .fv-nav-icon-btn {
-              display: inline-flex !important;
-            }
-          }
+          /* Chhota search remove ho gaya — ab big search bar hamesha dikhe */
           @media (max-width: 1180px) {
             .fv-desktop-nav { display: none !important; }
             .fv-hamburger { display: block !important; }

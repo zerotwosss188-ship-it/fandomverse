@@ -140,7 +140,22 @@ export default function IntroVideoBackground() {
             background:
               'radial-gradient(ellipse at 50% 40%, #1a0a0e 0%, #0a0a0a 60%, #050505 100%)',
           }}
-        />
+        >
+          {/* Decorative orb to fill empty space */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '30%',
+              left: '60%',
+              width: 400,
+              height: 400,
+              borderRadius: '50%',
+              background:
+                'radial-gradient(circle, rgba(225,29,72,0.25) 0%, transparent 70%)',
+              filter: 'blur(60px)',
+            }}
+          />
+        </div>
       )}
 
       <style>{`

@@ -82,9 +82,9 @@ const finalImage = legalImage || image;
               position: 'absolute',
               top: 10,
               left: 10,
-              fontSize: 9,
-              padding: '3px 8px',
-              borderRadius: 4,
+              fontSize: 'clamp(9px, 0.55rem + 0.15vw, 11px)',
+              padding: '4px 9px',
+              borderRadius: 5,
               background: 'rgba(10,10,10,0.8)',
               border: `1px solid ${meta.color}66`,
               color: meta.color,
@@ -105,12 +105,12 @@ const finalImage = legalImage || image;
 
         <h3
           style={{
-            fontSize: 14,
+            fontSize: 'clamp(15px, 0.95rem + 0.35vw, 20px)',
             fontFamily: 'Orbitron, sans-serif',
             fontWeight: 700,
             color: '#f5f5f5',
-            lineHeight: 1.3,
-            marginBottom: 6,
+            lineHeight: 1.35,
+            marginBottom: 8,
             letterSpacing: '0.01em',
             display: '-webkit-box',
             WebkitLineClamp: 2,
@@ -122,7 +122,7 @@ const finalImage = legalImage || image;
         </h3>
         <div
           style={{
-            fontSize: 11,
+            fontSize: 'clamp(11px, 0.7rem + 0.2vw, 14px)',
             color: '#a8a8a8',
             fontFamily: 'Space Grotesk, sans-serif',
             display: 'flex',

@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import NewsTicker from './components/NewsTicker';
 import Chatbot from './components/Chatbot';
 import Home from './pages/Home';
 import CategoryHub from './pages/CategoryHub';
@@ -38,7 +37,6 @@ export default function App() {
           </Routes>
         </main>
         <div style={{ marginTop: 60 }}>
-          <NewsTicker />
         </div>
         <Footer />
         <Chatbot />
