@@ -74,9 +74,16 @@ export default function Bookmarks() {
       (b) => `${b.type || 'article'}:${b.id}` !== targetKey
     );
     localStorage.setItem('fv_bookmarks', JSON.stringify(updated));
-    setBookmarks(updated);
-    window.dispatchEvent(new Event('fv-bookmarks-update'));
-    window.dispatchEvent(new Event('fv-bookmarks-new-count'));
+setBookmarks(updated);
+window.dispatchEvent(new Event('fv-bookmarks-update'));
+window.dispatchEvent(new Event('fv-bookmarks-new-count'));
+
+// ⭐ Toast event
+window.dispatchEvent(
+  new CustomEvent('fv-bookmark-toast', {
+    detail: { action: 'removed' },
+  })
+);
   };
 
   // ============ EXCEL EXPORT ============

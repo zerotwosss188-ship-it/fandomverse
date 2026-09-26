@@ -131,8 +131,18 @@ export default function ContentDetail() {
       ];
     }
     localStorage.setItem('fv_bookmarks', JSON.stringify(updated));
-    setBookmarked(!bookmarked);
-    window.dispatchEvent(new Event('fv-bookmarks-update'));
+setBookmarked(!bookmarked);
+window.dispatchEvent(new Event('fv-bookmarks-update'));
+
+// ⭐ Toast event
+window.dispatchEvent(
+  new CustomEvent('fv-bookmark-toast', {
+    detail: {
+      action: bookmarked ? 'removed' : 'added',
+      title: item.title,
+    },
+  })
+);
   };
 
   if (loading) {

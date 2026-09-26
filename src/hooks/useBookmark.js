@@ -44,8 +44,20 @@ export function useBookmark({ id, title, type, category, image }) {
       setBookmarked(!bookmarked);
 
       window.dispatchEvent(new Event('fv-bookmarks-update'));
-      window.dispatchEvent(new Event('fv-bookmarks-new-count'));
-      console.log('✅ Bookmark toggled:', key, 'now', updated.length, 'items');
+window.dispatchEvent(new Event('fv-bookmarks-new-count'));
+
+// ⭐ Toast event
+const wasRemoving = bookmarked;
+window.dispatchEvent(
+  new CustomEvent('fv-bookmark-toast', {
+    detail: {
+      action: wasRemoving ? 'removed' : 'added',
+      title,
+    },
+  })
+);
+
+console.log('✅ Bookmark toggled:', key, 'now', updated.length, 'items');
     } catch (err) {
       console.error('❌ Bookmark toggle failed:', err);
     }
