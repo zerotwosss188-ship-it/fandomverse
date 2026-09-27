@@ -505,6 +505,7 @@ Frontend Developer	[ StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI , StudentI
 UI/UX Designer	[ StudentID1730490 - MANAHIL ASHRAF , StudentID:1726465 -MALAIKA IFTIKHAR , StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI ]	Visual design, responsive layouts, animations
 Content Curator	[ StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI , StudentID:1729035 - FARHAN AHMED KHAN , StudentID1730490 - MANAHIL ASHRAF , StudentID:1726465 -MALAIKA IFTIKHAR ]	JSON data, character bios, article drafting
 QA & Testing	[ StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI ]	Cross-browser testing, accessibility audit
+Full Time Test And Code Debugging [ StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI ] website pages and api connections and more issues
 
 📄 License & Rights
 This project is submitted as a non-commercial educational project under the TechWiz 7 — The World Tech Championship (Aptech Learning).
@@ -533,6 +534,12 @@ All trademarks, character designs, and franchise names belong to their respectiv
 Live URL
 🌐 https://fandoms.netlify.app/
 🌐 https://fandomverse-hub.vercel.app/
+
+⚠️ Warning
+If any content images and banners are not showing and screen is constantly showing images loading
+that means the api are expired !
+For that [ StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI ] regularly checks web and update it on github so
+that no errors will come in website.
 
 Netlify Config (netlify.toml)
 toml
