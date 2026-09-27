@@ -198,11 +198,11 @@ Fandom communities are scattered across fan wikis, streaming services, social me
 
 
 ## ⚠️ Warning
-|-------|-----------|---------|
-| If any content images and banners are not showing and screen is constantly showing images loading |
-| that means the api are expired ! |
-| For that [ StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI ] regularly checks web and update it on github so |
-| that no errors will come in website. |
+
+ If any content images and banners are not showing and screen is constantly showing images loading 
+ that means the api are expired ! 
+ For that [ StudentID: 1730851 - MUHAMAD ASBER ALI BIN SAADI ] regularly checks web and update it on github so 
+ that no errors will come in website. 
 
 ---
 
